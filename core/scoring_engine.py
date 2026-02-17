@@ -12,24 +12,29 @@ class ScoringEngine:
 
     def __init__(self):
         self.model = None
-        self._load_model()
+        # Removed _load_model() from here to prevent blocking server startup on Render/Vercel
 
     def _load_model(self):
-        """Lazy load SBERT model to avoid startup temp hang."""
-        if SentenceTransformer:
-            try:
-                if ScoringEngine._model_instance is None:
-                    print(f"Loading AI Model ({SBERT_MODEL_NAME})...")
-                    ScoringEngine._model_instance = SentenceTransformer(SBERT_MODEL_NAME)
-                self.model = ScoringEngine._model_instance
-            except Exception as e:
-                print(f"Failed to load SBERT: {e}")
-                self.model = None
+        """Truly lazy load SBERT model on first use."""
+        if not SentenceTransformer:
+            return
+            
+        try:
+            if ScoringEngine._model_instance is None:
+                print(f"Loading AI Model ({SBERT_MODEL_NAME})... this may take a moment.")
+                ScoringEngine._model_instance = SentenceTransformer(SBERT_MODEL_NAME)
+            self.model = ScoringEngine._model_instance
+        except Exception as e:
+            print(f"Failed to load SBERT: {e}")
+            self.model = None
 
     def calculate_similarity(self, text1, text2):
         """Returns cosine similarity between two strings (0.0 to 1.0)."""
         if not self.model:
-            # Fallback to SequenceMatcher if model fails
+            self._load_model()
+            
+        if not self.model:
+            # Fallback to SequenceMatcher if model fails to load
             return SequenceMatcher(None, text1.lower(), text2.lower()).ratio()
             
         # Compute embeddings
