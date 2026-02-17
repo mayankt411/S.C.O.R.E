@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.C.O.R.E | Systematic Cognitive Observation and Recognition Engine</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Source+Serif+Pro:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Background Elements -->
+        <div class="bg-decoration">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+        </div>
+
+        <header class="app-header fade-in">
+            <div class="header-inner">
+                <div class="logo">
+                    <div class="logo-mark">N</div>
+                    <div class="logo-text">
+                        <h1>S.C.O.R.E</h1>
+                        <p>Systematic Cognitive Observation and Recognition Engine</p>
+                    </div>
+                </div>
+                <div id="headerStatus" class="header-status">
+                    <span class="status-dot"></span>
+                    System Online
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Home View -->
+            <section id="homeView" class="view active">
+                <div class="hero-container">
+                    <div class="hero-text fade-in">
+                        <span class="pre-title">Advancing Cognitive Diagnostics</span>
+                        <h2>The Future of <span class="highlight">Mental Health</span> is Here.</h2>
+                        <p>
+                            A multi-modal assessment platform utilizing deep semantic analysis
+                            and behavioral biometrics to provide clinical-grade insights into
+                            neurocognitive health.
+                        </p>
+                        <div class="hero-actions">
+                            <button id="startBtn" class="btn btn-main">Initialize System</button>
+                            <span class="clinical-tag">Approved for research use only</span>
+                        </div>
+                    </div>
+                    <div class="hero-visual fade-in">
+                        <div class="brain-card">
+                            <div class="pulse-ring"></div>
+                            <span class="visual-icon">🧠</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Login View -->
+            <section id="loginView" class="view">
+                <div class="card-modal fade-in">
+                    <div class="modal-header">
+                        <h3>Patient Registration</h3>
+                        <p>Please enter details to begin the discrete assessment session.</p>
+                    </div>
+                    <form id="loginForm" class="login-form">
+                        <div class="form-group">
+                            <label for="userName">Full Name</label>
+                            <input type="text" id="userName" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="userAge">Age</label>
+                                <input type="number" id="userAge" min="1" max="120" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userEmail">Email</label>
+                                <input type="email" id="userEmail" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-main btn-block">Begin Assessment</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Assessment View -->
+            <section id="assessmentView" class="view">
+                <div class="assessment-layout">
+                    <div class="assessment-sidebar fade-in">
+                        <div class="sidebar-info">
+                            <div class="info-group">
+                                <label>Patient</label>
+                                <span id="displayPatientName">---</span>
+                            </div>
+                            <div class="info-group">
+                                <label>Category</label>
+                                <span id="qDomain" class="q-domain">---</span>
+                            </div>
+                        </div>
+                        <div class="timer-card">
+                            <span id="qTimer">00:00</span>
+                            <p>Session Time</p>
+                        </div>
+                    </div>
+
+                    <div class="assessment-main">
+                        <div class="stepper">
+                            <div class="step-progress">
+                                <div id="progressBar" class="progress-fill"></div>
+                            </div>
+                            <span id="progressText">Question 1/10</span>
+                        </div>
+
+                        <div class="card question-card fade-in" id="questionCard">
+                            <div id="qText" class="question-text">---</div>
+                            <div id="specialContent" class="special-content"></div>
+
+                            <div class="input-container">
+                                <div class="input-wrapper">
+                                    <input type="text" id="userInput" placeholder="Provide your answer..."
+                                        autocomplete="off">
+                                    <div class="input-tools">
+                                        <button id="listenBtn" class="tool-btn" title="Listen">🔊</button>
+                                        <button id="speakBtn" class="tool-btn" title="Speak">🎤</button>
+                                    </div>
+                                </div>
+                                <button id="submitBtn" class="btn btn-main">Continue <span
+                                        class="arrow">→</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="feedbackToast" class="toast"></div>
+            </section>
+
+            <!-- Results View -->
+            <section id="resultsView" class="view">
+                <div class="results-container fade-in">
+                    <div class="results-top">
+                        <div class="results-title">
+                            <h2>Clinical <span class="highlight">Dashboard</span></h2>
+                            <p>Integrated neurocognitive health summary for <strong id="resPatientName">---</strong></p>
+                        </div>
+                        <div class="score-display">
+                            <div class="score-circle">
+                                <svg viewBox="0 0 36 36" class="circular-chart">
+                                    <path class="circle-bg"
+                                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <path id="scorePath" class="circle" stroke-dasharray="0, 100"
+                                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                </svg>
+                                <div class="score-text">
+                                    <h4 id="totalScore">0</h4>
+                                    <span>/ 30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="results-grid">
+                        <!-- AI Analysis -->
+                        <div class="card analysis-card">
+                            <div class="card-header">
+                                <span class="icon">🔬</span>
+                                <h4>AI Disease Analysis</h4>
+                            </div>
+                            <div class="analysis-body">
+                                <div class="analysis-row">
+                                    <div class="analysis-item">
+                                        <label>Confidence</label>
+                                        <div class="trend-indicator">
+                                            <span id="confText">---</span>
+                                            <div class="mini-bar">
+                                                <div id="confBarFill" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="analysis-item">
+                                        <label>Severity</label>
+                                        <span id="severityStage" class="severity-tag">---</span>
+                                    </div>
+                                </div>
+                                <div class="prediction-main">
+                                    <p id="diseaseType">---</p>
+                                </div>
+                                <div id="clinicalNote" class="clinical-note">---</div>
+                            </div>
+                        </div>
+
+                        <!-- Cognitive Map -->
+                        <div class="card chart-card">
+                            <div class="card-header">
+                                <span class="icon">🕸️</span>
+                                <h4>Cognitive Performance Map</h4>
+                            </div>
+                            <div class="chart-wrapper">
+                                <canvas id="radarChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Typing Patterns -->
+                        <div class="card typing-card">
+                            <div class="card-header">
+                                <span class="icon">⌨️</span>
+                                <h4>Behavioral Biometrics</h4>
+                            </div>
+                            <div class="metrics-grid">
+                                <div class="met-item">
+                                    <span id="avgWpm">0</span>
+                                    <label>Avg WPM</label>
+                                </div>
+                                <div class="met-item">
+                                    <span id="errorRate">0%</span>
+                                    <label>Error Rate</label>
+                                </div>
+                                <div class="met-item">
+                                    <span id="consistency">0%</span>
+                                    <label>Stability</label>
+                                </div>
+                            </div>
+                            <div class="line-chart-wrapper">
+                                <canvas id="typingChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Detailed Log -->
+                        <div class="card log-card">
+                            <div class="card-header">
+                                <span class="icon">📝</span>
+                                <h4>Response Analytics Log</h4>
+                            </div>
+                            <div id="responseLog" class="response-log">
+                                <!-- Log items injected here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="results-actions">
+                        <button class="btn btn-secondary" onclick="location.reload()">New Assessment</button>
+                        <button id="downloadReport" class="btn btn-main">Export Full Clinical Report (PDF)</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+
+</html>
