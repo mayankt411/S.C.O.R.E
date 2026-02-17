@@ -342,4 +342,3 @@ class DiseasePredictor:
         interpretation += "This is a screening tool only - clinical evaluation is recommended for diagnosis."
         
         return interpretation
-    
