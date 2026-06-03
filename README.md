@@ -1,12 +1,4 @@
----
-title: S.C.O.R.E AI
-emoji: 🧠
-colorFrom: indigo
-colorTo: purple
-sdk: docker
-pinned: false
-app_port: 7860
----
+
 
 # S.C.O.R.E AI - NeuroCognitive Assessment
 This repository contains the S.C.O.R.E (Systematic Cognitive Observation and Recognition Engine) platform.
