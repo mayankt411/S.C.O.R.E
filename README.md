@@ -26,20 +26,20 @@ The application is deployed and publicly accessible on Hugging Face Spaces:
 
 The **Mini-Mental State Examination (MMSE)** is a 30-point clinical questionnaire widely utilized to measure cognitive impairment and track changes across time in conditions such as Alzheimer’s disease and dementia. Early and accessible cognitive screening is vital for timely clinical intervention, yet traditional paper-based administrations can be labor-intensive and susceptible to subjective evaluation.
 
-**S.C.O.R.E** digitizes and elevates the standard MMSE into an automated multi-modal assessment engine. By coupling semantic embedding comparison (Sentence-Transformers SBERT) with fine-grained keystroke dynamics (typing speed, error types, and temporal pause analysis) and ensemble machine learning (XGBoost + Random Forest), the platform provides automated 30-point scoring, cognitive domain breakdown, and AI-driven risk stratification with downloadable clinical PDF reports.
+**S.C.O.R.E** digitizes and elevates the standard MMSE into an automated multi-modal assessment engine. By coupling semantic embedding comparison (`Sentence-Transformers` SBERT) with fine-grained keystroke dynamics (typing speed, error types, and temporal pause analysis) and ensemble machine learning (`XGBoost` + `Random Forest`), the platform provides automated 30-point scoring, cognitive domain breakdown, and AI-driven risk stratification with downloadable clinical PDF reports.
 
 ---
 
 ## ✨ Key Features
 
 - **Standardized Multi-Domain MMSE Assessment**: Dynamic assessment battery spanning core cognitive domains — *Orientation*, *Visual & Language Analysis*, *Focus & Discrimination*, *Linguistic Complexity*, *Memory Encoding*, *Attention & Calculation*, *Recall*, and *Executive Function*.
-- **Semantic & Fuzzy Scoring Engine**: Evaluates free-text answers using cosine similarity over Sentence-BERT (ll-MiniLM-L6-v2) embeddings with sequence-matching fallbacks (SequenceMatcher) for typo tolerance, multi-word corrections, and recall sets.
+- **Semantic & Fuzzy Scoring Engine**: Evaluates free-text answers using cosine similarity over Sentence-BERT (`all-MiniLM-L6-v2`) embeddings with sequence-matching fallbacks (`SequenceMatcher`) for typo tolerance, multi-word corrections, and recall sets.
 - **Behavioral Keystroke Biometrics**: Real-time extraction of typing dynamics, including Words Per Minute (WPM), character count, error categorization (substitutions, omissions, additions, transpositions), consistency, and temporal hesitation stability.
 - **52-Feature Cognitive Profiling**: Aggregates response accuracy, domain performance, and typing telemetry into a comprehensive 52-dimensional feature vector.
-- **Ensemble Impairment Prediction & Interpretability**: Dual-model ensemble combining XGBoost and Random Forest with heuristic baseline weighting to predict cognitive health stages (*Normal Cognition*, *Mild Cognitive Impairment [MCI]*, *Moderate*, *Severe*) alongside SHAP tree-explainer attribution.
+- **Ensemble Impairment Prediction & Interpretability**: Dual-model ensemble combining `XGBoost` and `Random Forest` with heuristic baseline weighting to predict cognitive health stages (*Normal Cognition*, *Mild Cognitive Impairment [MCI]*, *Moderate*, *Severe*) alongside `SHAP` tree-explainer attribution.
 - **Interactive Clinical Dashboard**: Dark/light-responsive diagnostic dashboard featuring scaled 30-point MMSE scores, interactive cognitive radar performance maps, typing biometrics charts, and granular response logs.
-- **Automated Clinical PDF Generation**: One-click generation and streaming of structured neurocognitive assessment reports via ReportLab.
-- **Text-to-Speech & Voice Accessibility**: Built-in voice reading (pyttsx3 / Web Speech) and audio prompts to assist patients with reading difficulties.
+- **Automated Clinical PDF Generation**: One-click generation and streaming of structured neurocognitive assessment reports via `ReportLab`.
+- **Text-to-Speech & Voice Accessibility**: Built-in voice reading (`pyttsx3` / Web Speech) and audio prompts to assist patients with reading difficulties.
 
 ---
 
@@ -48,7 +48,7 @@ The **Mini-Mental State Examination (MMSE)** is a 30-point clinical questionnair
 ### Backend & Machine Learning
 - **Framework:** [FastAPI](https://fastapi.tiangolo.com/) (Asynchronous REST API & Web Server)
 - **ASGI Server:** Uvicorn / Gunicorn
-- **NLP / Semantic Embeddings:** [Sentence-Transformers](https://sbert.net/) (ll-MiniLM-L6-v2), PyTorch (CPU-optimized)
+- **NLP / Semantic Embeddings:** [Sentence-Transformers](https://sbert.net/) (`all-MiniLM-L6-v2`), PyTorch (CPU-optimized)
 - **Machine Learning:** [XGBoost](https://xgboost.readthedocs.io/), [scikit-learn](https://scikit-learn.org/) (Random Forest), [SHAP](https://shap.readthedocs.io/)
 - **Data & Text Processing:** pandas, numpy, python-Levenshtein
 - **Data Validation & Schemas:** Pydantic v2
@@ -88,13 +88,13 @@ The **Mini-Mental State Examination (MMSE)** is a 30-point clinical questionnair
 - Git
 
 ### 1. Clone the Repository
-`ash
+```bash
 git clone https://github.com/mayankt411/S.C.O.R.E.git
 cd S.C.O.R.E
-`
+```
 
 ### 2. Create and Activate Virtual Environment
-`ash
+```bash
 python -m venv .venv
 
 # Windows (PowerShell):
@@ -102,29 +102,29 @@ python -m venv .venv
 
 # Linux / macOS:
 # source .venv/bin/activate
-`
+```
 
 ### 3. Install Dependencies
-`ash
+```bash
 pip install -r requirements.txt
-`
+```
 
 ### 4. Run the Application
-`ash
+```bash
 python main.py
-`
+```
 Or with Uvicorn directly:
-`ash
+```bash
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-`
+```
 
-Open your browser and navigate to **http://localhost:8000** to launch the assessment.
+Open your browser and navigate to **`http://localhost:8000`** to launch the assessment.
 
 ---
 
 ## 📁 Project Structure
 
-`
+```
 S.C.O.R.E/
 ├── core/
 │   ├── ml_models/
@@ -154,23 +154,7 @@ S.C.O.R.E/
 ├── requirements.txt               # Project dependencies
 ├── LICENSE                        # MIT License
 └── README.md                      # Project documentation
-`
-
----
-
-## 📜 Citation
-
-If you reference this work or use the S.C.O.R.E framework in your research, please cite:
-
-`ibtex
-@inproceedings{score2026biosmart,
-  title     = {S.C.O.R.E: A Multi-Modal Artificial Intelligence Framework for Neurocognitive Assessment via Semantic Analysis and Behavioral Biometrics},
-  booktitle = {2026 7th International Conference on Bio-engineering for Smart Technologies (BioSMART)},
-  year      = {2026},
-  publisher = {IEEE},
-  doi       = {10.1109/BioSMART71257.2026.11598146}
-}
-`
+```
 
 ---
 
